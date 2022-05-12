@@ -57,4 +57,11 @@ class LoginController extends Controller
             $this->username() => 'ایمیل یا پسورد وارد شده نامعتبر است'
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        return response()->json(['message'=>'خروج موفقیت آمیز بود.']);
+    }
 }

@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::group(['middleware' => ['auth:api']],function (){
+    Route::post('logout','Auth\LoginController@logout');
+});
+
 
 
 Route::group(['middleware'=>['guest:api']],function (){
