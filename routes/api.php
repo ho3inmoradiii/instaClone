@@ -18,7 +18,5 @@ Route::group(['middleware'=>['guest:api']],function (){
     Route::post('password/reset','Auth\ResetPasswordController@reset');
 });
 
-//Route::get('test',function (){
-//    return response()->json(['message'=>'this is a test']);
-//});
+
 
