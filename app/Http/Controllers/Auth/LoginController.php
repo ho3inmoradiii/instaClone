@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -63,5 +64,14 @@ class LoginController extends Controller
         $this->guard()->logout();
 
         return response()->json(['message'=>'خروج موفقیت آمیز بود.']);
+    }
+
+    public function getMe(){
+        if (auth()->check()){
+            $user = auth()->user();
+            return new UserResource($user);
+            //return response()->json(['user' => auth()->user()],200);
+        }
+        return response()->json(null,401);
     }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::get('me','Auth\LoginController@getMe');
+
 Route::group(['middleware' => ['auth:api']],function (){
     Route::post('logout','Auth\LoginController@logout');
 });
@@ -14,6 +16,8 @@ Route::group(['middleware'=>['guest:api']],function (){
     Route::post('verification/verify/{user}','Auth\VerificationController@verify')->name('verification.verify');
     Route::post('verification/resend','Auth\VerificationController@resend');
     Route::post('login','Auth\LoginController@login');
+    Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset','Auth\ResetPasswordController@reset');
 });
 
 Route::get('test',function (){
