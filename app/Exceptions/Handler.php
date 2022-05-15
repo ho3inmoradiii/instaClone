@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -50,6 +52,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AuthorizationException){
+            if ($request->expectsJson()){
+                return response()->json(['errors' => ['message' => 'شما اجازه دسترسی به این عملیات را ندارید']],403);
+            }
+        }
+        if ($exception instanceof ModelNotFoundException && $request->expectsJson()){
+            return response()->json(['errors' => ['message' => 'پستی با آیدی مورد نظر یافت نشد']],404);
+        }
         return parent::render($request, $exception);
     }
 }
