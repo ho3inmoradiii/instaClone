@@ -24,6 +24,8 @@ class DesignController extends Controller
 
         $design->update($validation);
 
+        $design->retag($request->tags);
+
         return new DesignResource($design);
     }
 

@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Cviebrock\EloquentTaggable\Taggable;
 
 class design extends Model
 {
+    use Taggable;
     protected $fillable = [
         'user_id',
         'image',

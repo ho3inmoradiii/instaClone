@@ -115,6 +115,7 @@
       <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/cviebrock/eloquent-taggable" />
     </include_path>
   </component>
   <component name="PhpUnit">
