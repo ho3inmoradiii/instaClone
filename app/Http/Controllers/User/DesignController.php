@@ -6,12 +6,26 @@ use App\design;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDesignRequest;
 use App\Http\Resources\DesignResource;
+use App\Repositories\Contracts\IDesign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DesignController extends Controller
 {
+    protected $designs;
+
+    public function __construct(IDesign $designs)
+    {
+        $this->designs = $designs;
+    }
+
+    public function index()
+    {
+        $designs = $this->designs->all();
+        return DesignResource::collection($designs);
+    }
+
     public function update(UpdateDesignRequest $request,$id)
     {
         $design = design::findOrFail($id);
