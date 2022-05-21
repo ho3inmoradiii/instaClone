@@ -60,6 +60,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ModelNotFoundException && $request->expectsJson()){
             return response()->json(['errors' => ['message' => 'پستی با آیدی مورد نظر یافت نشد']],404);
         }
+        if ($exception instanceof ModelNotDefined && $request->expectsJson()){
+            return response()->json(['errors' => ['message' => 'مدلی پیدا نشد']],500);
+        }
         return parent::render($request, $exception);
     }
 }

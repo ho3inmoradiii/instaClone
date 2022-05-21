@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePasswordRequest;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Resources\UserResource;
+use App\Repositories\Eloquent\UserRepository;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+
     public function updateProfile(StoreProfileRequest $request)
     {
         $validation = $request->validated();

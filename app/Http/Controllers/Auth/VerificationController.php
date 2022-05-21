@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\Eloquent\UserRepository;
 use App\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\URL;
 
 class VerificationController extends Controller
 {
+    protected $users;
+
     /*
     |--------------------------------------------------------------------------
     | Email Verification Controller
@@ -28,10 +31,11 @@ class VerificationController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
         //$this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->users = $users;
     }
 
     public function verify(Request $request, User $user){
@@ -59,6 +63,8 @@ class VerificationController extends Controller
         $this->validate($request, [
             'email' => ['email','required']
         ]);
+
+        $user = $this->users->findWhereFirst('email',$request->email);
 
         $user = User::where('email',$request->email)->first();
         if (! $user){

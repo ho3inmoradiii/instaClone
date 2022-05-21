@@ -4,7 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('me','Auth\LoginController@getMe');
+
+
 Route::get('designs','User\DesignController@index');
+Route::get('designs/{id}','User\DesignController@findDesign');
+
+
 Route::get('users','User\UserController@index');
 
 Route::group(['middleware' => ['auth:api']],function (){

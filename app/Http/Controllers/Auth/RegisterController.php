@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\Eloquent\UserRepository;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -12,6 +13,13 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    protected $users;
+
+    public function __construct(UserRepository $users)
+    {
+        $this->users = $users;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -54,7 +62,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $this->users->create([
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],

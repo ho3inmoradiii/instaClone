@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDesignRequest;
 use App\Http\Resources\DesignResource;
 use App\Repositories\Contracts\IDesign;
+use App\Repositories\Eloquent\DesignRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ class DesignController extends Controller
 {
     protected $designs;
 
-    public function __construct(IDesign $designs)
+    public function __construct(DesignRepository $designs)
     {
         $this->designs = $designs;
     }
@@ -26,9 +27,15 @@ class DesignController extends Controller
         return DesignResource::collection($designs);
     }
 
+    public function findDesign($id)
+    {
+        $design = $this->designs->find($id);
+        return new DesignResource($design);
+    }
+
     public function update(UpdateDesignRequest $request,$id)
     {
-        $design = design::findOrFail($id);
+        $design = $this->designs->find($id);
         $this->authorize('update',$design);
 
         $validation = $request->validated();
@@ -36,16 +43,16 @@ class DesignController extends Controller
 
         $validation['is_live'] = !$design->upload_successful ? false : $request->is_live;
 
-        $design->update($validation);
+        $design = $this->designs->update($id,$validation);
 
-        $design->retag($request->tags);
+        $this->designs->applyTag($id,$request->tags);
 
         return new DesignResource($design);
     }
 
     public function destroy($id)
     {
-        $design = design::findOrFail($id);
+        $design = $this->designs->find($id);
         $this->authorize('delete',$design);
 
         foreach (['thumbnail','large','original'] as $size){
@@ -54,7 +61,7 @@ class DesignController extends Controller
             }
         }
 
-        $design->delete();
+        $this->designs->delete($id);
 
         return response()->json(['message' => 'پست شما با موفقیت حذف شد'],200);
     }
