@@ -16,7 +16,6 @@ class DesignResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => new UserResource($this->user),
             'title' => $this->title,
             'slug' => $this->slug,
             'images' => $this->images,
@@ -34,6 +33,8 @@ class DesignResource extends JsonResource
                 'updated_at_humans' => $this->updated_at->diffForHumans(),
                 'updated_at' => $this->updated_at,
             ],
+            'comments' => CommentResource::collection($this->comments),
+            'user' => new UserResource($this->user),
         ];
     }
 }

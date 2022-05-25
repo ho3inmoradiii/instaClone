@@ -21,10 +21,6 @@ class design extends Model
         'disk',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-
     public function getImagesAttribute()
     {
         return [
@@ -37,5 +33,14 @@ class design extends Model
     public function getImagePath($size)
     {
         return Storage::disk($this->disk)->url("uploads/designs/{$size}/".$this->image);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class,'commentable')->orderBy('created_at','asc');
     }
 }

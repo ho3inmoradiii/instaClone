@@ -16,9 +16,14 @@ Route::group(['middleware' => ['auth:api']],function (){
     Route::post('logout','Auth\LoginController@logout');
     Route::put('settings/profile','User\SettingsController@updateProfile');
     Route::put('settings/password','User\SettingsController@updatePassword');
+
+    //Design crud
     Route::post('designs','User\UploadController@upload');
     Route::put('designs/{id}','User\DesignController@update');
     Route::delete('designs/{id}','User\DesignController@destroy');
+
+    //Comment crud
+    Route::post('designs/{id}/comment','User\CommentController@store');
 });
 
 Route::group(['middleware'=>['guest:api']],function (){
