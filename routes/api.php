@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth:api']],function (){
 
     //Comment crud
     Route::post('designs/{id}/comment','User\CommentController@store');
+    Route::put('comment/{id}','User\CommentController@update');
+    Route::delete('comment/{id}','User\CommentController@destroy');
 });
 
 Route::group(['middleware'=>['guest:api']],function (){

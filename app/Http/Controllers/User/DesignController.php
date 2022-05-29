@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDesignRequest;
 use App\Http\Resources\DesignResource;
 use App\Repositories\Contracts\IDesign;
+use App\Repositories\Eloquent\criteria\EagerLoad;
 use App\Repositories\Eloquent\criteria\IsLive;
 use App\Repositories\Eloquent\criteria\LatestFirst;
 use App\Repositories\Eloquent\criteria\ForUser;
@@ -29,7 +30,8 @@ class DesignController extends Controller
         $designs = $this->designs->withCriteria([
             new LatestFirst(),
             new IsLive(),
-            new ForUser(2)
+            new ForUser(2),
+            new EagerLoad(['user','comments'])
         ])->all();
         return DesignResource::collection($designs);
     }
