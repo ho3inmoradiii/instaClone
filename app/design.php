@@ -2,13 +2,15 @@
 
 namespace App;
 
+use App\Traits\likeable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentTaggable\Taggable;
 
 class design extends Model
 {
-    use Taggable;
+    use Taggable,likeable;
+
     protected $fillable = [
         'user_id',
         'image',

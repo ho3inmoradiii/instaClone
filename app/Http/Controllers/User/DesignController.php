@@ -74,4 +74,17 @@ class DesignController extends Controller
 
         return response()->json(['message' => 'پست شما با موفقیت حذف شد'],200);
     }
+
+    public function like($id)
+    {
+        $this->designs->like($id);
+
+        return response()->json(['message' => 'موفقیت آمیز'],200);
+    }
+
+    public function checkIfUserHasLiked($designId)
+    {
+        $isLiked = $this->designs->isLikedByUser($designId);
+        return response()->json(['isLiked' => $isLiked],200);
+    }
 }

@@ -26,6 +26,10 @@ Route::group(['middleware' => ['auth:api']],function (){
     Route::post('designs/{id}/comment','User\CommentController@store');
     Route::put('comment/{id}','User\CommentController@update');
     Route::delete('comment/{id}','User\CommentController@destroy');
+
+    //like and unlike
+    Route::post('designs/{id}/like','User\DesignController@like');
+    Route::get('designs/{id}/liked','User\DesignController@checkIfUserHasLiked');
 });
 
 Route::group(['middleware'=>['guest:api']],function (){
