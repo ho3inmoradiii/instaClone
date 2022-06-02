@@ -12,6 +12,9 @@ Route::get('designs/{id}','User\DesignController@findDesign');
 
 Route::get('users','User\UserController@index');
 
+
+Route::get('teams/slug/{slug}','Team\TeamController@findBySlug');
+
 Route::group(['middleware' => ['auth:api']],function (){
     Route::post('logout','Auth\LoginController@logout');
     Route::put('settings/profile','User\SettingsController@updateProfile');
@@ -30,6 +33,14 @@ Route::group(['middleware' => ['auth:api']],function (){
     //like and unlike
     Route::post('designs/{id}/like','User\DesignController@like');
     Route::get('designs/{id}/liked','User\DesignController@checkIfUserHasLiked');
+
+    //Teams Route
+    Route::post('teams','Team\TeamController@store');
+    Route::get('teams/{id}','Team\TeamController@findById');
+    Route::get('teams','Team\TeamController@index');
+    Route::get('users/teams','Team\TeamController@fetchUserTeams');
+    Route::put('teams/{id}','Team\TeamController@update');
+    Route::delete('teams/{id}','Team\TeamController@destroy');
 });
 
 Route::group(['middleware'=>['guest:api']],function (){
