@@ -14,6 +14,7 @@ class design extends Model
     protected $fillable = [
         'user_id',
         'image',
+        'team_id',
         'title',
         'description',
         'slug',
@@ -44,5 +45,10 @@ class design extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class,'commentable')->orderBy('created_at','asc');
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 }

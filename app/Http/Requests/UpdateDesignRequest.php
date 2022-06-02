@@ -26,7 +26,8 @@ class UpdateDesignRequest extends FormRequest
         return [
             'title' => ['required','unique:designs,title'],
             'description' => ['required','min:20','max:140','string'],
-            'tags' => ['required']
+            'tags' => ['required'],
+            'team' => ['required_if:assign_to_team,true']
         ];
     }
 }

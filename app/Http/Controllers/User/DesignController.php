@@ -51,6 +51,7 @@ class DesignController extends Controller
         $validation['slug'] = Str::slug($request->title);
 
         $validation['is_live'] = !$design->upload_successful ? false : $request->is_live;
+        $validation['team_id'] = $request->team;
 
         $design = $this->designs->update($id,$validation);
 
