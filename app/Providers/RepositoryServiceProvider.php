@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\IInvitation;
 use App\Repositories\Contracts\ITeam;
+use App\Repositories\Eloquent\InvitationRepository;
 use App\Repositories\Eloquent\TeamRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Contracts\IUser;
@@ -35,5 +37,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IUser::class,UserRepository::class);
         $this->app->bind(IComment::class,CommentRepository::class);
         $this->app->bind(ITeam::class,TeamRepository::class);
+        $this->app->bind(IInvitation::class,InvitationRepository::class);
     }
 }

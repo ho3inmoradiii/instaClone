@@ -12,4 +12,9 @@ Class UserRepository extends BaseRepository implements IUser
     {
         return User::class;
     }
+
+    public function getUserByEmail($email)
+    {
+        return $this->model()::where('email',$email)->first();
+    }
 }
