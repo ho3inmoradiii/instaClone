@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ChatResource;
 use App\Http\Resources\MessageResource;
 use App\Repositories\Eloquent\ChatRepository;
+use App\Repositories\Eloquent\criteria\WithTrashed;
 use App\Repositories\Eloquent\MessageRepository;
 use Illuminate\Http\Request;
 
@@ -46,5 +47,34 @@ class ChatController extends Controller
         ]);
 
         return new MessageResource($message);
+    }
+
+    public function getUserChats()
+    {
+        $chats = $this->chat->getUserChats();
+        return ChatResource::collection($chats);
+    }
+
+    public function getChatMessages($id)
+    {
+        $messages = $this->message->withCriteria([
+            new WithTrashed()
+        ])->findWhere('chat_id',$id);
+        return MessageResource::collection($messages);
+    }
+
+    public function markAsRead($id)
+    {
+        $chat = $this->chat->find($id);
+        $chat->markAsReadForUser(auth()->id());
+        return response()->json(['message' => 'موفقیت آمیز'],'200');
+    }
+
+    public function destroyMessage($id)
+    {
+        $message = $this->message->find($id);
+        $this->authorize('delete',$message);
+        $message->delete();
+        return response()->json(['message' => 'موفقیت آمیز'],'200');
     }
 }
