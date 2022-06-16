@@ -15,14 +15,14 @@ class MessageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'user_id' => $this->user_id,
-            'chat_id' => $this->chat_id,
+            'id'=> $this->id,
             'body' => $this->body,
-            'last_read' => $this->last_read,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'chat' => new ChatResource($this->chat)
+            'deleted' => $this->trashed(),
+            'dates' => [
+                'created_at_human' => $this->created_at->diffForHumans(),
+                'created_at' => $this->created_at,
+            ],
+            'sender' => new UserResource($this->sender)
         ];
     }
 }
