@@ -88,4 +88,10 @@ class DesignController extends Controller
         $isLiked = $this->designs->isLikedByUser($designId);
         return response()->json(['isLiked' => $isLiked],200);
     }
+
+    public function search(Request $request)
+    {
+        $designs = $this->designs->search($request);
+        return DesignResource::collection($designs);
+    }
 }

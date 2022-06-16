@@ -15,6 +15,8 @@ Route::get('users','User\UserController@index');
 
 Route::get('teams/slug/{slug}','Team\TeamController@findBySlug');
 
+Route::get('search/design','User\DesignController@search');
+
 Route::group(['middleware' => ['auth:api']],function (){
     Route::post('logout','Auth\LoginController@logout');
     Route::put('settings/profile','User\SettingsController@updateProfile');
