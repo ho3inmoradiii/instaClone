@@ -9,10 +9,13 @@ Route::get('me','Auth\LoginController@getMe');
 Route::get('designs','User\DesignController@index');
 Route::get('designs/{id}','User\DesignController@findDesign');
 Route::get('designs/slug/{slug}','User\DesignController@findDesignBySlug');
+Route::get('teams/{id}/designs','User\DesignController@getForTeam');
+Route::get('users/{id}/designs','User\DesignController@getForUser');
+
 
 
 Route::get('users','User\UserController@index');
-
+Route::get('users/{username}','User\UserController@findByUsername');
 
 Route::get('teams/slug/{slug}','Team\TeamController@findBySlug');
 

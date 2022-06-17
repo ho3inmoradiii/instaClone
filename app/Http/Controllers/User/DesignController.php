@@ -12,6 +12,7 @@ use App\Repositories\Eloquent\criteria\IsLive;
 use App\Repositories\Eloquent\criteria\LatestFirst;
 use App\Repositories\Eloquent\criteria\ForUser;
 use App\Repositories\Eloquent\DesignRepository;
+use App\Repositories\Eloquent\TeamRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -19,10 +20,12 @@ use Illuminate\Support\Str;
 class DesignController extends Controller
 {
     protected $designs;
+    protected $team;
 
-    public function __construct(DesignRepository $designs)
+    public function __construct(DesignRepository $designs,TeamRepository $team)
     {
         $this->designs = $designs;
+        $this->team = $team;
     }
 
     public function index()
@@ -100,4 +103,18 @@ class DesignController extends Controller
         $design = $this->designs->withCriteria([new IsLive()])->findWhereFirst('slug',$slug);
         return new DesignResource($design);
     }
+
+    public function getForTeam($id)
+    {
+        $designs = $this->designs->withCriteria([new IsLive()])->findWhere('team_id',$id);
+        return DesignResource::collection($designs);
+    }
+
+    public function getForUser($id)
+    {
+        $designs = $this->designs->withCriteria([new IsLive()])->findWhere('user_id',$id);
+        return DesignResource::collection($designs);
+    }
+
+
 }
