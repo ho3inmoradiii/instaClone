@@ -8,6 +8,7 @@ Route::get('me','Auth\LoginController@getMe');
 
 Route::get('designs','User\DesignController@index');
 Route::get('designs/{id}','User\DesignController@findDesign');
+Route::get('designs/slug/{slug}','User\DesignController@findDesignBySlug');
 
 
 Route::get('users','User\UserController@index');

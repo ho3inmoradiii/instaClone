@@ -30,7 +30,7 @@ class DesignController extends Controller
         $designs = $this->designs->withCriteria([
             new LatestFirst(),
             new IsLive(),
-            new ForUser(2),
+//            new ForUser(2),
             new EagerLoad(['user','comments'])
         ])->all();
         return DesignResource::collection($designs);
@@ -93,5 +93,11 @@ class DesignController extends Controller
     {
         $designs = $this->designs->search($request);
         return DesignResource::collection($designs);
+    }
+
+    public function findDesignBySlug($slug)
+    {
+        $design = $this->designs->withCriteria([new IsLive()])->findWhereFirst('slug',$slug);
+        return new DesignResource($design);
     }
 }
