@@ -112,8 +112,16 @@ class DesignController extends Controller
 
     public function getForUser($id)
     {
-        $designs = $this->designs->withCriteria([new IsLive()])->findWhere('user_id',$id);
+        $designs = $this->designs
+//            ->withCriteria([new IsLive()])
+            ->findWhere('user_id',$id);
         return DesignResource::collection($designs);
+    }
+
+    public function userOwnsDesign($id)
+    {
+        $design = $this->designs->withCriteria(new ForUser(auth()->id()))->findWhereFirst('id',$id);
+        return new DesignResource($design);
     }
 
 

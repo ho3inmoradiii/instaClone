@@ -65,6 +65,7 @@ class TeamController extends Controller
     {
         $users = $this->team->fetchUserTeams();
         return TeamResource::collection($users);
+        //return response()->json(['message' => 'گوزو']);
     }
 
     public function removeFromTeam($teamId,$userId)

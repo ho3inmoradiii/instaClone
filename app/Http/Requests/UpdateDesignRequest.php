@@ -30,4 +30,10 @@ class UpdateDesignRequest extends FormRequest
             'team' => ['required_if:assign_to_team,true']
         ];
     }
+
+    public function messages(){
+        return [
+            'team.required_if' => 'هنگامی که اختصاص به تیم انتخاب شده است، انتخاب یکی از تیم ها الزامی است',
+        ];
+    }
 }

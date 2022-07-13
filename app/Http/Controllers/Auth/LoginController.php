@@ -52,7 +52,7 @@ class LoginController extends Controller
         if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()){
             return response()->json(['errors' => [
                 'verification' => 'شما باید ایمیل خود را فعال کنید'
-            ]]);
+            ]],422);
         }
         throw ValidationException::withMessages([
             $this->username() => 'ایمیل یا پسورد وارد شده نامعتبر است'

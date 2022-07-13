@@ -15,7 +15,7 @@ Route::get('users/{id}/designs','User\DesignController@getForUser');
 
 
 Route::get('users','User\UserController@index');
-Route::get('users/{username}','User\UserController@findByUsername');
+
 
 Route::get('teams/slug/{slug}','Team\TeamController@findBySlug');
 
@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth:api']],function (){
     //Design crud
     Route::post('designs','User\UploadController@upload');
     Route::put('designs/{id}','User\DesignController@update');
+    Route::get('designs/{id}/byUser','User\DesignController@userOwnsDesign');
     Route::delete('designs/{id}','User\DesignController@destroy');
 
     //Comment crud
@@ -62,6 +63,8 @@ Route::group(['middleware' => ['auth:api']],function (){
     Route::put('chats/{id}/markAsRead' , 'Chats\ChatController@markAsRead');
     Route::delete('messages/{id}' , 'Chats\ChatController@destroyMessage');
 });
+
+Route::get('users/{username}','User\UserController@findByUsername');
 
 Route::group(['middleware'=>['guest:api']],function (){
     Route::post('register','Auth\RegisterController@register');

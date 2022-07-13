@@ -28,8 +28,8 @@ class StoreProfileRequest extends FormRequest
             'name' => 'required',
             'about' => 'required|string|min:20',
             'formatted_address' => 'required',
-            'location.latitude' => 'required|numeric|min:-90|max:90',
-            'location.longitude' => 'required|numeric|min:-180|max:180',
+//            'location.latitude' => 'required|numeric|min:-90|max:90',
+////            'location.longitude' => 'required|numeric|min:-180|max:180',
         ];
     }
 }

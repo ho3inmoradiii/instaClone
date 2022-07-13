@@ -16,14 +16,14 @@ class SettingsController extends Controller
     public function updateProfile(StoreProfileRequest $request)
     {
         $validation = $request->validated();
-        $location = new Point($request->location['latitude'],$request->location['longitude']);
+        //$location = new Point($request->location['latitude'],$request->location['longitude']);
 
         $validation['available_to_hire'] = $request->available_to_hire;
 
         $user = auth()->user();
         $user->update($validation);
 
-        $user->location = $location;
+        //$user->location = $location;
         $user->save();
 
         return new UserResource($user);
