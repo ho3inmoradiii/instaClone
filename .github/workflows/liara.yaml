@@ -15,5 +15,5 @@ jobs:
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
-#          npm i -g @liara/cli@2
+          npm i -g @liara/cli@2
           liara deploy --app="instaclone" --api-token="$LIARA_TOKEN" --region iran --detach
