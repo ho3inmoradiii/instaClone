@@ -1,0 +1,9 @@
+{
+    "app": "instaclone-api",
+    "disks": [
+        {
+            "name": "data",
+            "mountTo": "storage"
+        }
+    ]
+}
